@@ -1,13 +1,12 @@
 <?php
 	require_once("../../config/conexion.php");
 	if(isset($_SESSION{"usu_id"})){
-
 ?>
 <!DOCTYPE html>
 <html>
 <head lang="es">
     <?php require_once("../MainHead/head.php"); ?>
-    <title>Buytiti-HelpDesk-Home</title>
+    <title>Buytiti-HelpDesk-Detalle Ticket</title>
 </head>
 <body class="with-side-menu">
 
@@ -20,13 +19,14 @@
 
 	<div class="page-content">
 		<div class="container-fluid">
-			Blank page.
+			<section class="activity-line" id="lbldetalle">
+					
+			</section>
 		</div>
 	</div>
 
     <?php require_once("../MainJs/js.php"); ?>
-	<script>type="text/javascript" src="home.js"</script>
-
+	<script type="text/javascript" src="detalleticket.js"></script>
 </body>
 </html>
 <?php
@@ -35,4 +35,5 @@
 		header("Location:".$conectar->ruta()."index.php");
 
 	}
+
 ?>

@@ -38,10 +38,11 @@
         <div class="page-center-in">
             <div class="container-fluid">
                 <form class="sign-box" action="" method="post" id="login_form">
+                    <input type="hidden" id="rol_id" name="rol_id" value="1">
                     <div class="sign-avatar">
                         <img src="publics/img/logo-buy.png" alt="">
                     </div>
-                    <header class="sign-title">Acceso</header>
+                    <header class="sign-title" id="lbltitulo">Acceso Colaborador</header>
 
                     <?php
                         if (isset($_GET["m"])){
@@ -80,17 +81,20 @@
                         <input type="password" id="usu_pass" name="usu_pass" class="form-control" placeholder="Contraseña"/>
                     </div>
                     <div class="form-group">
-                        <div class="checkbox float-left">
+                        <!-- <div class="checkbox float-left">
                             <input type="checkbox" id="signed-in"/>
                             <label for="signed-in">Mantenerme conectado</label>
-                        </div>
-                        <div class="float-right reset">
-                            <a href="reset-password.html">Reestablecer Contraseña</a>
+                        </div> -->
+                        <!-- <div class="float-right reset">
+                            <a href="reset-password.html">Cambiar Contraseña</a>
+                        </div> -->
+                        <div class="float-left reset">
+                            <a href="#" id="btnsoporte">Acceso Sistemas</a>
                         </div>
                     </div>
                     <input type="hidden" name="enviar" class="form-control" value="si">
                     <button type="submit" class="btn btn-rounded">Inicia Sesión</button>
-                    <p class="sign-note">¿Nuevo Usuario? <a href="sign-up.html">Registrate</a></p>
+                    <!-- <p class="sign-note">¿Nuevo Usuario? <a href="sign-up.html">Registrate</a></p> -->
                     <!--<button type="button" class="close">
                         <span aria-hidden="true">&times;</span>
                     </button>-->
@@ -122,5 +126,6 @@
         });
     </script>
 <script src="publics/js/app.js"></script>
+<script type="text/javascript" src="index.js"></script>
 </body>
 </html>
