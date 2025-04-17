@@ -49,6 +49,12 @@
 	                <span class="lbl">Consultar Ticket</span>
 	            </a>
 	        </li>
+			<li class="red">
+	            <a href="../MntUsuario/">
+	                <i class="font-icon glyphicon glyphicon-send"></i>
+	                <span class="lbl">Usuarios del sistema</span>
+	            </a>
+	        </li>
 	    </ul>
 	</nav><!--.side-menu-->
 <?php	

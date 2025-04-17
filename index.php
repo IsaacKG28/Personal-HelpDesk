@@ -40,7 +40,7 @@
                 <form class="sign-box" action="" method="post" id="login_form">
                     <input type="hidden" id="rol_id" name="rol_id" value="1">
                     <div class="sign-avatar">
-                        <img src="publics/img/logo-buy.png" alt="">
+                        <img id="imgtipo" src="publics/1.png" alt="">
                     </div>
                     <header class="sign-title" id="lbltitulo">Acceso Colaborador</header>
 

@@ -4,10 +4,14 @@
     $ticket = new Ticket();
 
     switch($_GET["op"]){
+
         case "insert":
             $ticket->insert_ticket($_POST["usu_id"],$_POST["cat_id"],$_POST["tick_prioridad"],$_POST["tick_titulo"],$_POST["tick_descrip"]);
         break;
-
+        case "update":
+            $ticket->update_ticket($_POST["tick_id"]);
+            $ticket->insert_ticketdetalle_cerrar($_POST["tick_id"],$_POST["usu_id"]);
+        break;
         case "listar_x_usu":
             $datos=$ticket->listar_ticket_x_usu($_POST["usu_id"]);
             $data= Array(); 
@@ -33,6 +37,7 @@
                 "aaData"=>$data);
             echo json_encode($results);
         break;
+
         case "listar":
             $datos=$ticket->listar_ticket();
             $data= Array(); 
@@ -60,42 +65,47 @@
                 "aaData"=>$data);
             echo json_encode($results);
         break;
+
         case "listardetalle":
-            $datos=$ticket->listar_ticketdetalle_x_ticket($POST["tick_id"]);
+            $datos=$ticket->listar_ticketdetalle_x_ticket($_POST["tick_id"]);
             ?>
                 <?php
                 foreach($datos as $row){
                     ?>
                         <article class="activity-line-item box-typical">
                             <div class="activity-line-date">
-                                Monday<br/>
-                                sep 8
+                                <?php echo date("d/m/Y", strtotime($row["fech_crea"]));?>
                             </div>
                             <header class="activity-line-item-header">
                                 <div class="activity-line-item-user">
                                     <div class="activity-line-item-user-photo">
                                         <a href="#">
-                                            <img src="img/photo-64-2.jpg" alt="">
+                                            <img src="../../publics/<?php echo $row['rol_id']?>.png" alt="">
                                         </a>
                                     </div>
-                                    <div class="activity-line-item-user-name">Tim Colins</div>
-                                    <div class="activity-line-item-user-status">Developer, Palo Alto</div>
+                                    <div class="activity-line-item-user-name"><?php echo $row['usu_nom'].' '.$row['uso_ape'];?></div>
+                                    <div class="activity-line-item-user-status">
+                                        <?php 
+                                        if ($row['rol_id']==1) {
+                                            echo 'Usuario';
+                                        } else {
+                                            echo 'Sistemas';
+                                        }
+                                        
+                                        
+                                        ?>
+                                    </div>
                                 </div>
                             </header>
                             <div class="activity-line-action-list">
                                 <section class="activity-line-action">
-                                    <div class="time">10:40 AM</div>
-                                    <div class="cont">
-                                        <div class="cont-in">
-                                            <p>Started nes UI migration</p>
-                                        </div>
+                                    <div class="time"><?php echo date("H:i:s", strtotime($row["fech_crea"]));?>
                                     </div>
-                                </section><!--.activity-line-action-->
-                                <section class="activity-line-action">
-                                    <div class="time">10:40 AM</div>
                                     <div class="cont">
                                         <div class="cont-in">
-                                            <p>Had a meeting about shopping cart experience, with Isobel Patterson, Josh Weller, Mark Taylor</p>
+                                                <p>
+                                                    <?php echo $row["tickd_descrip"];?>
+                                                </p>
                                         </div>
                                     </div>
                                 </section><!--.activity-line-action-->
@@ -106,7 +116,35 @@
                 ?>
             <?php
         break;
+
+        case "mostrar";
+            $datos=$ticket->listar_ticket_x_id($_POST["tick_id"]);  
+            if(is_array($datos)==true and count($datos)>0){
+                foreach($datos as $row)
+                {
+                    $output["tick_id"] = $row["tick_id"];
+                    $output["usu_id"] = $row["usu_id"];
+                    $output["cat_id"] = $row["cat_id"];
+                    $output["tick_titulo"] = $row["tick_titulo"];
+                    $output["tick_descrip"] = $row["tick_descrip"];
+                    
+                    if ($row["tick_estado"]=="Abierto"){
+                        $output["tick_estado"] = '<span class="label label-pill label-success">Abierto</span>';
+                    }else{
+                        $output["tick_estado"] = '<span class="label label-pill label-danger">Cerrado</span>';
+                    }
+                    $output["tick_estado_texto"] = $row["tick_estado"];
+                    $output["fech_crea"] = date("d/m/Y H:i:s", strtotime($row["fech_crea"]));
+                    $output["usu_nom"] = $row["usu_nom"];
+                    $output["uso_ape"] = $row["uso_ape"];
+                    $output["cat_nom"] = $row["cat_nom"];
+                }
+                echo json_encode($output);
+            }   
+        break;
+
+        case "insertdetalle":
+            $ticket->insert_ticketdetalle($_POST["tick_id"],$_POST["usu_id"],$_POST["tickd_descrip"]);
+        break;
     }
-
-
 ?>
