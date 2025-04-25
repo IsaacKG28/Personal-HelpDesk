@@ -5,7 +5,6 @@ function init(){
         guardaryeditar(e);	
     });
 }
-
 function guardaryeditar(e){
     e.preventDefault();
 	var formData = new FormData($("#usuario_form")[0]);
@@ -18,7 +17,7 @@ function guardaryeditar(e){
         success: function(datos){    
             console.log(datos);
             $('#usuario_form')[0].reset();
-            $("#modalmantenimiento").modal('hide');
+            $("#modalmentenimiento").modal('hide');
             $('#usuario_data').DataTable().ajax.reload();
 
             swal({
@@ -86,8 +85,8 @@ $(document).ready(function(){
 });
 
 function editar(usu_id){
-    $('#mdltitulo').html('Editar Registro');
-
+    $('#mdtitulo').html('Editar Registro');
+    
     $.post("../../controller/usuario.php?op=mostrar", {usu_id : usu_id}, function (data) {
         data = JSON.parse(data);
         $('#usu_id').val(data.usu_id);
@@ -96,9 +95,8 @@ function editar(usu_id){
         $('#usu_correo').val(data.usu_correo);
         $('#usu_pass').val(data.usu_pass);
         $('#rol_id').val(data.rol_id).trigger('change');
-    }); 
-
-    $('#modalmantenimiento').modal('show');
+    });
+    $('#modalmentenimiento').modal('show');
 }
 
 function eliminar(usu_id){
@@ -131,9 +129,9 @@ function eliminar(usu_id){
 }
 
 $(document).on("click","#btnnuevo", function(){
-    $('#mdltitulo').html('Nuevo Registro');
+    $('#mdtitulo').html('Nuevo Registro');
     $('#usuario_form')[0].reset();
-    $('#modalmantenimiento').modal('show');
+    $('#modalmentenimiento').modal('show');
 });
 
 init();

@@ -14,3 +14,4 @@
 <script src="../../publics/js/lib/fancybox/jquery.fancybox.pack.js"></script>
 
 
+<script src="../../publics/js/lib/select2/select2.full.min.js"></script>

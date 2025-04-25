@@ -61,8 +61,7 @@
                 echo json_encode($output);
             }   
             break;
-
-        case "total";
+            case "total";
             $datos=$usuario->get_usuario_total_x_id($_POST["usu_id"]);  
             if(is_array($datos)==true and count($datos)>0){
                 foreach($datos as $row)
@@ -94,27 +93,18 @@
                 echo json_encode($output);
             }
             break;
-
-        case "grafico";
-            $datos=$usuario->get_usuario_grafico($_POST["usu_id"]);  
-            echo json_encode($datos);
-            break;
-
         case "combo";
-            $datos = $usuario->get_usuario_x_rol();
-            if(is_array($datos)==true and count($datos)>0){
-                $html.= "<option label='Seleccionar'></option>";
-                foreach($datos as $row)
-                {
-                    $html.= "<option value='".$row['usu_id']."'>".$row['usu_nom']."</option>";
-                }
-                echo $html;
+        $datos = $usuario->get_usuario_x_rol();
+        if(is_array($datos)==true and count($datos)>0){
+            $html.= "<option label='Seleccionar'></option>";
+            foreach($datos as $row)
+            {
+                $html.= "<option value='".$row['usu_id']."'>".$row['usu_nom']."</option>";
             }
-            break;
-        /* Controller para actualizar contraseña */
-        case "password":
-            $usuario->update_usuario_pass($_POST["usu_id"],$_POST["usu_pass"]);
-            break;
+            echo $html;
+        }
+        break;
+
 
     }
 ?>

@@ -36,20 +36,22 @@
             }
 
         }
-        public function insert_usuario($usu_nom,$uso_ape,$usu_correo,$usu_pass,$rol_id){
-            $conectar= parent::conexion();
+        public function insert_usuario($usu_nom, $uso_ape, $usu_correo, $usu_pass, $rol_id){
+            $conectar = parent::conexion();
             parent::set_names();
-            $sql="INSERT INTO tm_usuario (usu_id, usu_nom, uso_ape, usu_correo, usu_pass, rol_id, fech_crea, est) VALUES (NULL,?,?,?,?,?,now(), NULL, NULL, '1');";
-            $sql=$conectar->prepare($sql);
+            $sql = "INSERT INTO tm_usuario 
+                    (usu_nom, uso_ape, usu_correo, usu_pass, rol_id, fecha_crea, estado) 
+                    VALUES 
+                    (?, ?, ?, ?, ?, now(), '1')";
+            $sql = $conectar->prepare($sql);
             $sql->bindValue(1, $usu_nom);
             $sql->bindValue(2, $uso_ape);
             $sql->bindValue(3, $usu_correo);
             $sql->bindValue(4, $usu_pass);
             $sql->bindValue(5, $rol_id);
             $sql->execute();
-            return $resultado=$sql->fetchAll();
+            return $resultado = $sql->fetchAll();
         }
-
         public function update_usuario($usu_id,$usu_nom,$uso_ape,$usu_correo,$usu_pass,$rol_id){
             $conectar= parent::conexion();
             parent::set_names();
@@ -90,7 +92,14 @@
             $sql->execute();
             return $resultado=$sql->fetchAll();
         }
-
+        public function get_usuario_x_rol(){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="SELECT * FROM tm_usuario where estado=1 and rol_id=2";
+            $sql=$conectar->prepare($sql);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
         public function get_usuario_x_id($usu_id){
             $conectar= parent::conexion();
             parent::set_names();
@@ -100,5 +109,36 @@
             $sql->execute();
             return $resultado=$sql->fetchAll();
         }
+
+        public function get_usuario_total_x_id($usu_id){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="SELECT COUNT(*) as TOTAL FROM tm_ticket where usu_id = ?";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1, $usu_id);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
+
+        public function get_usuario_totalabierto_x_id($usu_id){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="SELECT COUNT(*) as TOTAL FROM tm_ticket where usu_id = ? and tick_estado='Abierto'";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1, $usu_id);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
+
+        public function get_usuario_totalcerrado_x_id($usu_id){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="SELECT COUNT(*) as TOTAL FROM tm_ticket where usu_id = ? and tick_estado='Cerrado'";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1, $usu_id);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
+
     }
 ?>

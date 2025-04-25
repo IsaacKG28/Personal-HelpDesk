@@ -55,11 +55,9 @@
 		</div>
 	</div>
 	<!-- Contenido -->
-
-	<?php require_once("modalmantenimiento.php");?>
-
+	<?php require_once("modalmentenimiento.php");?>
 	<?php require_once("../MainJs/js.php");?>
-	
+
 	<script type="text/javascript" src="mntusuario.js"></script>
 
 </body>
